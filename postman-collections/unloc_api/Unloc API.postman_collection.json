@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d8e3a3e0-560e-4cf3-9b76-c060a5279d24",
+		"_postman_id": "4f2b48c0-b688-4f36-bec1-d11473db953d",
 		"name": "Unloc API",
 		"description": "Postman collection for testing the public Unloc API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -19,7 +19,7 @@
 								"exec": [
 									"if(pm.response.code === 200) {",
 									"    var jsonData = JSON.parse(responseBody);",
-									"    pm.globals.set(\"access_token\", jsonData.access_token);",
+									"    pm.environment.set(\"access_token\", jsonData.access_token);",
 									"}",
 									""
 								],
@@ -67,7 +67,8 @@
 								"exec": [
 									"if(pm.response.code === 200) {",
 									"    var jsonData = JSON.parse(responseBody);",
-									"    pm.globals.set(\"access_token\", jsonData.access_token);",
+									"    pm.environment.set(\"access_token\", jsonData.access_token);",
+									"    pm.environment.set(\"lock_holder_id\", jsonData.scope.lock_holder_id);",
 									"}"
 								],
 								"type": "text/javascript"
@@ -75,6 +76,9 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
