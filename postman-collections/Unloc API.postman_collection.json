@@ -1,0 +1,540 @@
+{
+	"info": {
+		"_postman_id": "d8e3a3e0-560e-4cf3-9b76-c060a5279d24",
+		"name": "Unloc API",
+		"description": "Postman collection for testing the public Unloc API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get unscoped Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2bbb5aca-1c1d-436c-9db6-a167c4019946",
+								"exec": [
+									"if(pm.response.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    pm.globals.set(\"access_token\", jsonData.access_token);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"grant_type\": \"client_credentials\",\n\t\"client_id\": \"{{client_id}}\",\n\t\"client_secret\": \"{{client_secret}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/v1/token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Get an access token without scope, used for creating or updating lock holders."
+					},
+					"response": []
+				},
+				{
+					"name": "Get scoped Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "279d3622-b45b-4555-b347-a4f19dc5f987",
+								"exec": [
+									"if(pm.response.code === 200) {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    pm.globals.set(\"access_token\", jsonData.access_token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"grant_type\": \"client_credentials\",\n\t\"client_id\": \"{{client_id}}\",\n\t\"client_secret\": \"{{client_secret}}\",\n\t\"scope\": {\n\t\t\"lock_holder_country_iso\": \"{{lock_holder_country_iso}}\",\n        \"lock_holder_org_id\": \"{{lock_holder_org_id}}\",\n        \"lock_holder_org_id_suffix\": \"{{lock_holder_org_id_suffix}}\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/v1/token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"v1",
+								"token"
+							]
+						},
+						"description": "Get an access token without scope, used for creating or updating lock holders."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Integrators API",
+			"item": [
+				{
+					"name": "LockHolders",
+					"item": [
+						{
+							"name": "Locks",
+							"item": [
+								{
+									"name": "Keys",
+									"item": [
+										{
+											"name": "Get all keys",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5ce19aa8-5b7f-430f-85d6-25d3d243b996",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/keys",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"integrators",
+														"v1",
+														"lock-holders",
+														"{{lock_holder_id}}",
+														"locks",
+														"{{lock_id}}",
+														"keys"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create new key",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "28cb3029-774a-4cd2-9019-055773718f5a",
+														"exec": [
+															"if(pm.response.code === 200) {",
+															"    var jsonData = JSON.parse(responseBody);",
+															"    pm.environment.set(\"key_id\", jsonData.id);",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"userId\": \"{{user_id}}\",\n\t\"start\": null,\n\t\"end\": null,\n\t\"skipInviteNotification\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/keys/",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"integrators",
+														"v1",
+														"lock-holders",
+														"{{lock_holder_id}}",
+														"locks",
+														"{{lock_id}}",
+														"keys",
+														""
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Edit key",
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"state\": \"revoked\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/keys/{{key_id}}",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"integrators",
+														"v1",
+														"lock-holders",
+														"{{lock_holder_id}}",
+														"locks",
+														"{{lock_id}}",
+														"keys",
+														"{{key_id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Roles",
+									"item": [
+										{
+											"name": "Get all roles",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/roles",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"integrators",
+														"v1",
+														"lock-holders",
+														"{{lock_holder_id}}",
+														"locks",
+														"{{lock_id}}",
+														"roles"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create or update role",
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"canShare\": true\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/roles/{{user_id}}",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"integrators",
+														"v1",
+														"lock-holders",
+														"{{lock_holder_id}}",
+														"locks",
+														"{{lock_id}}",
+														"roles",
+														"{{user_id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Get all locks",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"integrators",
+												"v1",
+												"lock-holders",
+												"{{lock_holder_id}}",
+												"locks"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get single lock",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fe84cbf3-534b-42dd-b4f7-8ebf6cf338fb",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"integrators",
+												"v1",
+												"lock-holders",
+												"{{lock_holder_id}}",
+												"locks",
+												"{{lock_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update lock",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"integrators",
+												"v1",
+												"lock-holders",
+												"{{lock_holder_id}}",
+												"locks",
+												"{{lock_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Create Lock Holder",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "79fac81a-ba0c-4f98-b10c-8a570e08ea9b",
+										"exec": [
+											"if(pm.response.code === 200) {",
+											"    var jsonData = JSON.parse(responseBody);",
+											"    pm.environment.set(\"lock_holder_id\", jsonData.id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"\",\n\t\"countryIso\": \"{{lock_holder_country_iso}}\",\n\t\"organizationId\": \"{{lock_holder_org_id}}\",\n\t\"organizationIdSuffix\": \"{{lock_holder_org_id_suffix}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/integrators/v1/lock-holders/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"lock-holders",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"description": "The Integrators API is built to allow fully managing locks, accesses and keys, either for locks you own yourself or on the behalf of others.",
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "{{access_token}}",
+						"type": "string"
+					},
+					{
+						"key": "tokenType",
+						"value": "bearer",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e90e2507-359d-4363-a880-bc4cebe608ef",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4c2f43e-16d4-4dc1-a464-91458a0f06c8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
