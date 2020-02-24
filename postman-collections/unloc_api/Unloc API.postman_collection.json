@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4f2b48c0-b688-4f36-bec1-d11473db953d",
+		"_postman_id": "0f8e4313-6cca-4a7e-814e-81841d4b6f76",
 		"name": "Unloc API",
 		"description": "Postman collection for testing the public Unloc API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -68,7 +68,6 @@
 									"if(pm.response.code === 200) {",
 									"    var jsonData = JSON.parse(responseBody);",
 									"    pm.environment.set(\"access_token\", jsonData.access_token);",
-									"    pm.environment.set(\"lock_holder_id\", jsonData.scope.lock_holder_id);",
 									"}"
 								],
 								"type": "text/javascript"
@@ -90,7 +89,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"grant_type\": \"client_credentials\",\n\t\"client_id\": \"{{client_id}}\",\n\t\"client_secret\": \"{{client_secret}}\",\n\t\"scope\": {\n\t\t\"lock_holder_country_iso\": \"{{lock_holder_country_iso}}\",\n        \"lock_holder_org_id\": \"{{lock_holder_org_id}}\",\n        \"lock_holder_org_id_suffix\": \"{{lock_holder_org_id_suffix}}\"\n\t}\n}",
+							"raw": "{\n\t\"grant_type\": \"client_credentials\",\n\t\"client_id\": \"{{client_id}}\",\n\t\"client_secret\": \"{{client_secret}}\",\n\t\"scope\":[\n        \"lockHolder.identifier:{{lock_holder_country_iso}}.{{lock_holder_org_id}}.{{lock_holder_org_id_suffix}}\"\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -348,7 +347,8 @@
 												"{{lock_holder_id}}",
 												"locks"
 											]
-										}
+										},
+										"description": "Return a list of all locks registered on this Lock Holder."
 									},
 									"response": []
 								},
@@ -434,11 +434,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "79fac81a-ba0c-4f98-b10c-8a570e08ea9b",
+										"id": "83ca36d3-dcfa-477b-bc81-2026cf669381",
 										"exec": [
 											"if(pm.response.code === 200) {",
 											"    var jsonData = JSON.parse(responseBody);",
 											"    pm.environment.set(\"lock_holder_id\", jsonData.id);",
+											"    pm.environment.set(\"lock_holder_country_iso\", jsonData.countryIso);",
+											"    pm.environment.set(\"lock_holder_org_id\", jsonData.organizationId);",
+											"    pm.environment.set(\"lock_holder_org_id_suffix\", jsonData.organizationIdSuffix);",
 											"}"
 										],
 										"type": "text/javascript"
@@ -467,7 +470,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"name\": \"\",\n\t\"countryIso\": \"{{lock_holder_country_iso}}\",\n\t\"organizationId\": \"{{lock_holder_org_id}}\",\n\t\"organizationIdSuffix\": \"{{lock_holder_org_id_suffix}}\"\n}",
+									"raw": "{\n\t\"name\": \"\",\n\t\"countryIso\": \"\",\n\t\"organizationId\": \"\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
