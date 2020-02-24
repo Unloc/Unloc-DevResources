@@ -485,7 +485,81 @@
 										"lock-holders",
 										""
 									]
+								},
+								"description": "Create a new Lock Holder. The currently logged in Integrator can now manage the new Lock Holder."
+							},
+							"response": []
+						},
+						{
+							"name": "Get managed Lock Holders",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "79fac81a-ba0c-4f98-b10c-8a570e08ea9b",
+										"exec": [
+											"if(pm.response.code === 200) {",
+											"    var jsonData = JSON.parse(responseBody);",
+											"    if (jsonData[\"managedLockHolders\"].length === 1) {",
+											"        pm.environment.set(\"lock_holder_id\", jsonData[\"managedLockHolders\"][0].id);",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
 								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/integrators/v1/lock-holders/?roles=admin",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"lock-holders",
+										""
+									],
+									"query": [
+										{
+											"key": "roles",
+											"value": "admin"
+										}
+									]
+								},
+								"description": "Returns the lock holders that you are allowed to manage, optionally limited to the scope of the current access token."
 							},
 							"response": []
 						}
