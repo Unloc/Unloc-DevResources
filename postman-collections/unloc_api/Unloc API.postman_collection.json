@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0f8e4313-6cca-4a7e-814e-81841d4b6f76",
+		"_postman_id": "1f7ee9b9-752c-4035-80ae-f502ea90da28",
 		"name": "Unloc API",
 		"description": "Postman collection for testing the public Unloc API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -503,8 +503,12 @@
 										"exec": [
 											"if(pm.response.code === 200) {",
 											"    var jsonData = JSON.parse(responseBody);",
-											"    if (jsonData[\"managedLockHolders\"].length === 1) {",
-											"        pm.environment.set(\"lock_holder_id\", jsonData[\"managedLockHolders\"][0].id);",
+											"    if (jsonData.length === 1) {",
+											"        var lockHolder = jsonData[0]",
+											"        pm.environment.set(\"lock_holder_id\", lockHolder.id);",
+											"        pm.environment.set(\"lock_holder_country_iso\", lockHolder.countryIso);",
+											"        pm.environment.set(\"lock_holder_org_id\", lockHolder.organizationId);",
+											"        pm.environment.set(\"lock_holder_org_id_suffix\", lockHolder.organizationIdSuffix);",
 											"    }",
 											"}"
 										],
@@ -545,7 +549,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/integrators/v1/lock-holders/?roles=admin",
+									"raw": "{{base_url}}/integrators/v1/lock-holders/",
 									"host": [
 										"{{base_url}}"
 									],
@@ -554,12 +558,6 @@
 										"v1",
 										"lock-holders",
 										""
-									],
-									"query": [
-										{
-											"key": "roles",
-											"value": "admin"
-										}
 									]
 								},
 								"description": "Returns the lock holders that you are allowed to manage, optionally limited to the scope of the current access token."
