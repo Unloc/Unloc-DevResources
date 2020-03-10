@@ -429,6 +429,81 @@
 							"_postman_isSubFolder": true
 						},
 						{
+							"name": "VendorConnection",
+							"item": [
+								{
+									"name": "Create Vendor Connection",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fa838a3f-2687-4543-b703-03f3997398a0",
+												"exec": [
+													"if(pm.response.code === 200) {",
+													"    var jsonData = JSON.parse(responseBody);",
+													"    pm.environment.set(\"vendor_connection_id\", jsonData.id);",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"vendor\": \"\",\n\t\"username\": \"\",\n\t\"password\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connection",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"integrators",
+												"v1",
+												"lock-holders",
+												"{{lock_holder_id}}",
+												"vendor-connection"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Refresh Vendor Connection",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connection/{{vendor_connection_id}}/refresh",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"integrators",
+												"v1",
+												"lock-holders",
+												"{{lock_holder_id}}",
+												"vendor-connection",
+												"{{vendor_connection_id}}",
+												"refresh"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Create Lock Holder",
 							"event": [
 								{
@@ -561,6 +636,37 @@
 									]
 								},
 								"description": "Returns the lock holders that you are allowed to manage, optionally limited to the scope of the current access token."
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "LockVendors",
+					"item": [
+						{
+							"name": "Create vendor account",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"password\": \"12345\",\n\t\"email\": \"email@email.email\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/integrators/v1/lock-vendors/account",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"lock-vendors",
+										"account"
+									]
+								}
 							},
 							"response": []
 						}
