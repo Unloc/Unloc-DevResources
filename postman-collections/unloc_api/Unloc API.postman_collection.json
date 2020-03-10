@@ -461,7 +461,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connection",
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections",
 											"host": [
 												"{{base_url}}"
 											],
@@ -470,7 +470,28 @@
 												"v1",
 												"lock-holders",
 												"{{lock_holder_id}}",
-												"vendor-connection"
+												"vendor-connections"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get all vendor connections",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"integrators",
+												"v1",
+												"lock-holders",
+												"{{lock_holder_id}}",
+												"vendor-connections"
 											]
 										}
 									},
@@ -482,7 +503,7 @@
 										"method": "PUT",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connection/{{vendor_connection_id}}/refresh",
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections/{{vendor_connection_id}}/refresh",
 											"host": [
 												"{{base_url}}"
 											],
@@ -491,7 +512,7 @@
 												"v1",
 												"lock-holders",
 												"{{lock_holder_id}}",
-												"vendor-connection",
+												"vendor-connections",
 												"{{vendor_connection_id}}",
 												"refresh"
 											]
