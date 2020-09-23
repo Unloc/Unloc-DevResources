@@ -43,14 +43,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/auth/v1/token",
+							"raw": "{{base_url}}/auth/v1/token/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"auth",
 								"v1",
-								"token"
+								"token",
+								""
 							]
 						},
 						"description": "Get an access token without scope, used for creating or updating lock holders."
@@ -68,6 +69,7 @@
 									"if(pm.response.code === 200) {",
 									"    var jsonData = JSON.parse(responseBody);",
 									"    pm.environment.set(\"access_token\", jsonData.access_token);",
+									"    pm.environment.set(\"lock_holder_id\", jsonData.lock_holder_id)",
 									"}"
 								],
 								"type": "text/javascript"
@@ -97,14 +99,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/auth/v1/token",
+							"raw": "{{base_url}}/auth/v1/token/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"auth",
 								"v1",
-								"token"
+								"token",
+								""
 							]
 						},
 						"description": "Get an access token without scope, used for creating or updating lock holders."
@@ -144,7 +147,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/keys",
+													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/keys/",
 													"host": [
 														"{{base_url}}"
 													],
@@ -155,7 +158,8 @@
 														"{{lock_holder_id}}",
 														"locks",
 														"{{lock_id}}",
-														"keys"
+														"keys",
+														""
 													]
 												}
 											},
@@ -238,7 +242,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/keys/{{key_id}}",
+													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/keys/{{key_id}}/",
 													"host": [
 														"{{base_url}}"
 													],
@@ -250,7 +254,8 @@
 														"locks",
 														"{{lock_id}}",
 														"keys",
-														"{{key_id}}"
+														"{{key_id}}",
+														""
 													]
 												}
 											},
@@ -269,7 +274,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/roles",
+													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/roles/",
 													"host": [
 														"{{base_url}}"
 													],
@@ -280,7 +285,8 @@
 														"{{lock_holder_id}}",
 														"locks",
 														"{{lock_id}}",
-														"roles"
+														"roles",
+														""
 													]
 												}
 											},
@@ -308,7 +314,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/roles/{{user_id}}",
+													"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/roles/{{user_id}}/",
 													"host": [
 														"{{base_url}}"
 													],
@@ -320,7 +326,8 @@
 														"locks",
 														"{{lock_id}}",
 														"roles",
-														"{{user_id}}"
+														"{{user_id}}",
+														""
 													]
 												}
 											},
@@ -329,28 +336,6 @@
 									],
 									"protocolProfileBehavior": {},
 									"_postman_isSubFolder": true
-								},
-								{
-									"name": "Get all locks",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"integrators",
-												"v1",
-												"lock-holders",
-												"{{lock_holder_id}}",
-												"locks"
-											]
-										},
-										"description": "Return a list of all locks registered on this Lock Holder."
-									},
-									"response": []
 								},
 								{
 									"name": "Get single lock",
@@ -370,7 +355,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}",
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/",
 											"host": [
 												"{{base_url}}"
 											],
@@ -380,7 +365,8 @@
 												"lock-holders",
 												"{{lock_holder_id}}",
 												"locks",
-												"{{lock_id}}"
+												"{{lock_id}}",
+												""
 											]
 										}
 									},
@@ -408,7 +394,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}",
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/{{lock_id}}/",
 											"host": [
 												"{{base_url}}"
 											],
@@ -418,7 +404,8 @@
 												"lock-holders",
 												"{{lock_holder_id}}",
 												"locks",
-												"{{lock_id}}"
+												"{{lock_id}}",
+												""
 											]
 										}
 									},
@@ -461,7 +448,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections",
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections/",
 											"host": [
 												"{{base_url}}"
 											],
@@ -470,7 +457,8 @@
 												"v1",
 												"lock-holders",
 												"{{lock_holder_id}}",
-												"vendor-connections"
+												"vendor-connections",
+												""
 											]
 										}
 									},
@@ -482,7 +470,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections",
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections/",
 											"host": [
 												"{{base_url}}"
 											],
@@ -491,7 +479,8 @@
 												"v1",
 												"lock-holders",
 												"{{lock_holder_id}}",
-												"vendor-connections"
+												"vendor-connections",
+												""
 											]
 										}
 									},
@@ -503,7 +492,7 @@
 										"method": "PUT",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections/{{vendor_connection_id}}/refresh",
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections/{{vendor_connection_id}}/refresh/",
 											"host": [
 												"{{base_url}}"
 											],
@@ -514,7 +503,8 @@
 												"{{lock_holder_id}}",
 												"vendor-connections",
 												"{{vendor_connection_id}}",
-												"refresh"
+												"refresh",
+												""
 											]
 										}
 									},
@@ -535,7 +525,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections/{{vendor_connection_id}}/update-password",
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/vendor-connections/{{vendor_connection_id}}/update-password/",
 											"host": [
 												"{{base_url}}"
 											],
@@ -546,7 +536,8 @@
 												"{{lock_holder_id}}",
 												"vendor-connections",
 												"{{vendor_connection_id}}",
-												"update-password"
+												"update-password",
+												""
 											]
 										},
 										"description": "Change the password with this vendor connection's vendor"
@@ -561,33 +552,12 @@
 							"name": "Users",
 							"item": [
 								{
-									"name": "Get all users",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/users",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"integrators",
-												"v1",
-												"lock-holders",
-												"{{lock_holder_id}}",
-												"users"
-											]
-										}
-									},
-									"response": []
-								},
-								{
 									"name": "Delete all shared keys",
 									"request": {
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/users/{{user_id}}/shared-keys",
+											"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/users/{{user_id}}/shared-keys/",
 											"host": [
 												"{{base_url}}"
 											],
@@ -598,7 +568,8 @@
 												"{{lock_holder_id}}",
 												"users",
 												"{{user_id}}",
-												"shared-keys"
+												"shared-keys",
+												""
 											]
 										},
 										"description": "Delete all keys a user have shared to locks belonging to this lock holder.\n\nONLY A MOCK: ENDPOINT DOES NOT DELETE ANY KEYS"
@@ -744,6 +715,96 @@
 								"description": "Returns the lock holders that you are allowed to manage, optionally limited to the scope of the current access token."
 							},
 							"response": []
+						},
+						{
+							"name": "Get all keys",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/keys/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"lock-holders",
+										"{{lock_holder_id}}",
+										"keys",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "10",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Get all keys for all locks for this lock holder"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all roles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/roles/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"lock-holders",
+										"{{lock_holder_id}}",
+										"roles",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "10",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Get all keys for all locks for this lock holder"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all locks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/locks/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"lock-holders",
+										"{{lock_holder_id}}",
+										"locks",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "10",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Get all keys for all locks for this lock holder"
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
@@ -767,7 +828,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/integrators/v1/lock-vendors/account",
+									"raw": "{{base_url}}/integrators/v1/lock-vendors/account/",
 									"host": [
 										"{{base_url}}"
 									],
@@ -775,7 +836,8 @@
 										"integrators",
 										"v1",
 										"lock-vendors",
-										"account"
+										"account",
+										""
 									]
 								}
 							},
