@@ -805,6 +805,36 @@
 								"description": "Get all keys for all locks for this lock holder"
 							},
 							"response": []
+						},
+						{
+							"name": "Update LockHolder",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Updated name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/integrators/v1/lock-holders/{{lock_holder_id}}/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integrators",
+										"v1",
+										"lock-holders",
+										"{{lock_holder_id}}",
+										""
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
